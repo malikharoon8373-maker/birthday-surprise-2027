@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Happy Birthday 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{--red:#b8281e;--ink:#2b2b2b;--pink:#f6d5da}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#f4f1f2;font-family:'Patrick Hand','Fredoka',cursive;overflow:hidden}
+.s{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2vh;padding:4vmin;overflow-x:hidden;overflow-y:auto;
+ opacity:0;pointer-events:none;transition:opacity .6s;background:radial-gradient(circle at 50% 40%,#fff 40%,#f6e7ea)}
+.s.on{opacity:1;pointer-events:auto}
+h1{font:700 clamp(22px,5.5vmin,44px) 'Fredoka',sans-serif;color:var(--ink);letter-spacing:.5px;text-align:center}
+.red{color:var(--red);font-size:clamp(20px,4.6vmin,36px);text-align:center;min-height:1.3em}
+svg.p{width:min(42vmin,260px);height:auto;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.btns{display:flex;gap:4vmin}
+.btn{border:0;cursor:pointer;color:#fff;font:700 clamp(16px,3.8vmin,26px) 'Fredoka',sans-serif;background:#e2481c;
+ padding:.45em 1.6em;min-height:44px;border-radius:99px;box-shadow:inset 0 -4px 0 #a82f0e;text-decoration:underline}
+.btn:disabled{opacity:.65;cursor:wait}
+.hearts{position:absolute;inset:0;pointer-events:none}
+.hearts i{position:absolute;color:#f08aa3;font-style:normal;animation:fl 2s infinite}
+@keyframes fl{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-30px)}}
+#lock{background:radial-gradient(circle at 50% 38%,#fff 30%,#f8e6e9 100%)}
+#lock .lock-hearts{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+#lock .lock-hearts span{position:absolute;color:#ee9aaa;font-size:clamp(20px,4vmin,34px);animation:lock-float 4s ease-in-out infinite}
+#lock .lock-hearts span:nth-child(1){left:12%;top:24%}
+#lock .lock-hearts span:nth-child(2){right:14%;top:30%;animation-delay:1s}
+#lock .lock-hearts span:nth-child(3){left:20%;bottom:18%;animation-delay:2s}
+#lock .lock-hearts span:nth-child(4){right:19%;bottom:20%;animation-delay:1.5s}
+@keyframes lock-float{50%{transform:translateY(-12px);opacity:.55}}
+#lock .lock-card{position:relative;z-index:1;width:min(90vw,430px);padding:clamp(22px,5vmin,38px);display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2.2vmin,18px);background:#fffaf8;border:2px solid #f4e0e3;border-radius:26px;box-shadow:0 10px 30px #b8281e18;text-align:center;transition:transform .35s ease}
+#lock .lock-profile{width:clamp(104px,25vmin,156px);aspect-ratio:1;border:6px solid #f6d5da;border-radius:50%;object-fit:cover;object-position:50% 40%;box-shadow:0 4px 12px #0002}
+#lock .lock-icon{position:absolute;top:clamp(91px,22vmin,143px);right:calc(50% - clamp(56px,13vmin,82px));width:36px;height:36px;display:grid;place-items:center;border:3px solid #fffaf8;border-radius:50%;background:#e2481c;font-size:17px}
+#lock h1{font-size:clamp(23px,5.5vmin,34px);color:var(--red)}
+#lock .lock-subtitle{font-size:clamp(16px,3.8vmin,21px);color:#555}
+#lock-form{width:100%;display:flex;flex-direction:column;gap:12px}
+#lock-password{width:100%;height:52px;border:2px solid #edc5cc;border-radius:14px;background:#fff;color:var(--ink);font:700 24px 'Fredoka',sans-serif;letter-spacing:.35em;text-align:center;padding:0 12px}
+#lock-password:focus{outline:3px solid #f6d5da;outline-offset:2px;border-color:#dc7b8b}
+#lock-form .btn{width:100%;min-height:50px;text-decoration:none}
+#lock-error{min-height:1.4em;font-size:17px;color:var(--red)}
+#lock.unlocking{opacity:0;transform:scale(.97);transition:opacity .35s ease,transform .35s ease}
+@media(max-height:600px){#lock .lock-card{padding:16px;gap:8px}#lock .lock-profile{width:clamp(84px,19vh,120px)}#lock .lock-icon{top:calc(16px + clamp(73px,17vh,105px));right:calc(50% - clamp(46px,10vh,64px))}}
+.row{display:flex;gap:3vmin;align-items:flex-end;justify-content:center}
+.row .pg{opacity:0;transform:translateY(14px);transition:.6s;cursor:pointer;background:none;border:0}
+.row .pg.in{opacity:1;transform:none}.row .pg:active{transform:scale(.95)}
+.row .pg:focus-visible{outline:3px solid var(--red);outline-offset:4px;border-radius:12px}
+.row .pg svg{width:min(26vmin,170px);height:auto}
+/* birthday card */
+#bday{background:linear-gradient(135deg,#fff9f5,#f7eff8 55%,#fff5ed);position:fixed}
+#bday h2{font:700 clamp(30px,8vmin,64px)/.95 'Patrick Hand',cursive;color:#e0546f;text-shadow:2px 2px 0 #fff;letter-spacing:2px}
+.bday-top{display:flex;align-items:center;justify-content:center;gap:2vmin;position:relative;z-index:1}
+.bday-top .deco{font-size:clamp(26px,7vmin,48px)}
+.bday-scene{position:relative;width:min(92vw,720px);height:min(32vh,230px);min-height:110px;display:flex;align-items:center;justify-content:center}
+.bday-scene .p{width:min(27vmin,165px);max-height:100%;position:relative;z-index:1}
+.bday-scene .cake{position:absolute;left:calc(50% + min(8vmin,48px));top:43%;font-size:clamp(24px,6vmin,44px);z-index:2}
+.bday-scene .gifts{position:absolute;right:2%;bottom:4%;font-size:clamp(26px,7vmin,48px)}
+.bday-scene .sparkles{position:absolute;inset:0;color:#eab64d;font-size:clamp(14px,3vmin,22px);pointer-events:none}
+.bday-scene .sparkles span{position:absolute}
+.bday-scene .sparkles span:nth-child(1){left:18%;top:15%}
+.bday-scene .sparkles span:nth-child(2){left:29%;bottom:16%}
+.bday-scene .sparkles span:nth-child(3){right:25%;top:12%}
+.bday-scene .sparkles span:nth-child(4){right:10%;top:40%}
+.deco{font-size:clamp(28px,7vmin,50px)}
+/* gingham */
+.gin{background:repeating-conic-gradient(#fbe3e7 0 25%,#fff 0 50%) 0 0/24px 24px}
+.paper{background:#fffaf8;border-radius:18px;box-shadow:0 4px 14px #0002;padding:3vmin;width:min(94vw,860px);display:flex;gap:3vmin;align-items:center}
+#letter .paper{min-height:min(68vh,500px);border:8px solid #f4e0e3;border-radius:12px;background-color:#fffefa;background-image:repeating-linear-gradient(0deg,transparent 0 23px,#f5e8e8 24px 25px),linear-gradient(90deg,transparent 49.7%,#ead5d8 49.8% 50.2%,transparent 50.3%)}
+#letter::before,#letter::after{position:absolute;z-index:1;pointer-events:none;font-size:clamp(22px,5vmin,38px);filter:drop-shadow(0 2px 1px #fff)}
+#letter::before{content:"📷  ⭐";top:5%;left:5%}
+#letter::after{content:"♡  🍒";right:5%;bottom:5%;color:#e57c8b}
+#letter .paper{position:relative;z-index:2}
+#letter .lt{font-family:'Patrick Hand',cursive}
+#letter .lt b{font:700 clamp(18px,4vmin,30px) 'Patrick Hand',cursive;color:#dc7b8b;letter-spacing:1px}
+.heart{aspect-ratio:1;background:#e9c6cc center/cover;display:grid;place-items:center;color:#fff;font-size:12px;
+ -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath d='M23.6 0c-3 0-5.8 1.6-7.6 4C14.200 1.600 11.400 0 8.400 0 3.700 0 0 3.700 0 8.400 0 15.400 9 21.500 16 29c7-7.500 16-13.600 16-20.600C32 3.700 28.300 0 23.600 0z'/%3E%3C/svg%3E") center/contain no-repeat;
+ mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 29'%3E%3Cpath d='M23.6 0c-3 0-5.8 1.6-7.6 4C14.200 1.600 11.400 0 8.400 0 3.700 0 0 3.700 0 8.400 0 15.400 9 21.500 16 29c7-7.500 16-13.600 16-20.600C32 3.700 28.300 0 23.600 0z'/%3E%3C/svg%3E") center/contain no-repeat}
+#letter .heart{width:min(36vw,300px);flex:none}
+.cap{font:italic 20px 'Patrick Hand';text-align:center;margin-top:-4px}
+.lt{font-size:clamp(11px,2.2vmin,17px);line-height:1.45;color:#444;max-height:70vh;overflow:auto}
+.lt b{display:block;color:var(--red);margin-bottom:4px}
+.grid{position:relative;width:min(92vw,560px);aspect-ratio:1.45;margin:auto}
+.grid .heart{position:absolute;width:30%}
+.script{font:italic clamp(22px,5vmin,36px) 'Patrick Hand';color:#555}
+.lbl{position:absolute;width:30%;text-align:center;font:italic clamp(11px,2.6vmin,18px) 'Patrick Hand';color:#555}
+@media(max-width:640px) and (orientation:portrait){.paper{flex-direction:column}#letter .paper{background-image:repeating-linear-gradient(0deg,transparent 0 23px,#f5e8e8 24px 25px)}#letter .heart{width:46vw}}
+@media(max-height:500px) and (orientation:landscape){
+ .s{gap:1vh;padding:2vmin}
+ svg.p{width:min(28vmin,150px)}
+ .row .pg svg{width:min(20vmin,132px)}
+ #collage .paper{gap:1vmin;padding:1.5vmin}
+ #collage .grid{width:min(60vw,390px)}
+ #letter .paper{gap:2vmin;padding:2vmin}
+ #letter .heart{width:min(25vw,180px)}
+ .lt{font-size:clamp(10px,2.6vmin,14px);max-height:62vh}
+ #mine .heart.big{width:min(55vmin,250px)}
+ #love .t{font-size:clamp(34px,10vmin,80px)}
+}
+#mine .heart.big{width:min(78vmin,420px)}
+#mine{background:radial-gradient(circle,#f7d9de,#fff 70%)}
+/* hug */
+#hug{background:radial-gradient(ellipse at 50% 55%,#f6d4d9 35%,#fff 70%)}
+.bear{width:min(20vmin,110px);transition:transform 1.2s}
+.bears{display:flex;align-items:flex-end}
+.hugging .b2{transform:translateX(-45%)}
+.big-red{font:700 clamp(30px,8vmin,60px) 'Fredoka';color:var(--red);min-height:1.2em}
+/* finale */
+#love{background:#fff;border-top:5vh solid #ff7a1a;border-bottom:5vh solid #ff7a1a;box-shadow:inset 0 14px 0 #f4b79a,inset 0 -14px 0 #f4b79a}
+#love .t{font:700 clamp(40px,12vmin,120px)/1.05 'Fredoka';color:#e59a85;text-align:center;min-height:2.2em;padding-top:2vh}
+#love .btn{flex:none}
+</style></head><body>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="peng" viewBox="0 0 100 110"><ellipse cx="50" cy="104" rx="22" ry="3" fill="#0002"/>
+<ellipse cx="50" cy="72" rx="30" ry="32" fill="#cfc6b8"/><ellipse cx="50" cy="76" rx="22" ry="26" fill="#f6f1e8"/>
+<ellipse cx="50" cy="38" rx="28" ry="26" fill="#6b4a33"/><ellipse cx="50" cy="44" rx="20" ry="17" fill="#fbf6ee"/>
+<path d="M38 42q4-4 8 0M54 42q4-4 8 0" stroke="#333" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+<ellipse cx="50" cy="48" rx="4" ry="2.6" fill="#e8a24a"/><circle cx="35" cy="48" r="3" fill="#f6b4b9"/><circle cx="65" cy="48" r="3" fill="#f6b4b9"/></symbol>
+<symbol id="gift" viewBox="0 0 30 30"><rect x="2" y="9" width="26" height="19" rx="2" fill="#f2a9bd" stroke="#c9768e" stroke-width="1.5"/><path d="M15 9v19M2 17h26" stroke="#c9768e" stroke-width="2"/><path d="M15 9q-8-9-9-2t9 2q9-9 9-2t-9 2" fill="#f2a9bd" stroke="#c9768e" stroke-width="1.5"/></symbol>
+<symbol id="bear" viewBox="0 0 60 80"><ellipse cx="30" cy="52" rx="20" ry="24" fill="currentColor"/><circle cx="30" cy="24" r="17" fill="currentColor"/><circle cx="16" cy="11" r="6" fill="currentColor"/><circle cx="44" cy="11" r="6" fill="currentColor"/><circle cx="24" cy="24" r="2" fill="#333"/><circle cx="36" cy="24" r="2" fill="#333"/><ellipse cx="30" cy="30" rx="4" ry="3" fill="#fff8"/></symbol>
+</defs></svg>
+
+<!-- opening lock -->
+<section class="s on" id="lock">
+ <div class="lock-hearts" aria-hidden="true"><span>♡</span><span>♡</span><span>♡</span><span>♡</span></div>
+ <div class="lock-card">
+  <img class="lock-profile" src="photos/2.jpg" alt="Your best friend">
+  <span class="lock-icon" aria-hidden="true">🔒</span>
+  <h1>A Little Surprise For You ❤️</h1>
+  <p class="lock-subtitle">Only someone special knows the password!</p>
+  <form id="lock-form">
+   <label class="sr-only" for="lock-password">Password</label>
+   <input id="lock-password" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" aria-describedby="lock-error" required>
+   <button class="btn" type="submit">UNLOCK ❤️</button>
+  </form>
+  <p id="lock-error" role="status" aria-live="polite"></p>
+ </div>
+</section>
+
+<!-- 1 gift -->
+<section class="s" id="gift1"><div class="hearts" aria-hidden="true"><i style="left:25%;top:43%">♡</i><i style="right:25%;top:38%;animation-delay:.7s">♡</i><i style="left:33%;top:62%;animation-delay:1.2s">♡</i></div><h1 id="g1t"></h1>
+ <svg class="p" id="g1p" viewBox="0 0 100 110"><use href="#peng"/></svg>
+ <div class="btns"><button class="btn" type="button" id="yes"></button><button class="btn" type="button" id="no"></button></div></section>
+<section class="s" id="cry"><h1 id="cryt"></h1>
+ <svg class="p" viewBox="0 0 100 110"><use href="#peng"/><path d="M37 43C29 55 31 64 37 64c7 0 7-8 0-21zm26 0c-8 12-6 21 0 21 7 0 7-8 0-21z" fill="#61c9df" stroke="#fff" stroke-width="1"/><path d="M26 34l-3-4m51 4 3-4" stroke="#70d4e5" stroke-width="3" stroke-linecap="round"/></svg>
+ <div class="btns"><button class="btn" type="button" id="again"></button></div></section>
+
+<!-- 2 choose -->
+<section class="s" id="choose"><div class="red" id="c1"></div><div class="red" id="c2"></div>
+ <div class="row" id="pgs"></div></section>
+
+<!-- birthday -->
+<section class="s" id="bday"><div class="bday-top"><span class="deco">🐥</span><h2 id="bt"></h2><span class="deco">✨</span></div>
+ <div class="bday-scene" aria-hidden="true">
+  <svg class="p" viewBox="0 0 100 110"><use href="#peng"/><path d="M36 21l14-17 14 17z" fill="#c6e7ed" stroke="#594d42" stroke-width="2"/><circle cx="50" cy="8" r="2" fill="#e88a97"/></svg>
+  <span class="cake">🎂</span><span class="gifts">🎁🎁</span>
+  <div class="sparkles"><span>✦</span><span>✧</span><span>✦</span><span>✧</span></div>
+ </div></section>
+
+<!-- letter -->
+<section class="s gin" id="letter"><div class="paper">
+ <div><div class="heart" id="lph">photo</div><div class="cap" id="cap"></div></div>
+ <div class="lt" id="lt"></div></div></section>
+
+<!-- collage -->
+<section class="s gin" id="collage"><div class="paper" style="flex-direction:column">
+ <div class="script" id="colt"></div>
+ <div class="grid" id="grid"></div></div></section>
+
+<!-- will you be mine -->
+<section class="s" id="mine"><div class="red" id="mt"></div>
+ <div class="heart big" id="mph">photo</div><div class="script" id="md"></div></section>
+
+<!-- hug -->
+<section class="s" id="hug"><div class="red" id="ht"></div>
+ <div class="bears" id="bears"><svg class="bear b1" viewBox="0 0 60 80" style="color:#d9a21b"><use href="#bear"/></svg>
+ <svg class="bear b2" viewBox="0 0 60 80" style="color:#e6f2ee"><use href="#bear"/></svg></div>
+ <div class="big-red" id="miss"></div></section>
+
+<!-- finale -->
+<section class="s" id="love"><div class="t" id="lv"></div><button class="btn" type="button" id="restart">CONTINUE</button></section>
+
+<script>
+/* ===== EDIT THESE ===== */
+const CONFIG={
+ name:"Best Friend",                // friend's name
+ nickname:"Best Friend",            // caption under the letter photo
+ t:{
+  gift:"PLS ACCEPT THE GIFT", yes:"YES", no:"NO",
+  cry:"WHY DID YOU CLICK NO!", again:"TRY AGAIN",
+  choose1:"Choose a penguin", choose2:"Each one has something special to say ✨",
+  birthday:"HAPPY BIRTHDAY",
+  collage:"My Favorite Human",
+  labels:["Chaos buddy","Partner in crime","My person","Snack thief","Forever best friend"],  // 5 collage hearts
+  mine:"Thanks for being you!", date:"Best friends forever",
+  hug:"Virtual hug for ya!", miss:"I MISS YOU",
+  love:"LOVE YOU, BEST FRIEND"
+ },
+ letterTitle:"Happy Birthday, {name} 💗",   // {name} is replaced automatically
+ letter:["Another year older, same amazing you.","Thank you for every laugh, every random call and every time you listened.","You make my worst days better and my best days funnier.","Never change. (Okay, maybe stop being late.)","Happy Birthday, my favorite person!"],
+ photos:{letter:"photos/letter.jpg", collage:["photos/1.jpg","photos/2.jpg","photos/3.jpg","photos/4.jpg","photos/5.jpg"], couple:"photos/together.jpg"}
+};
+/* ====================== */
+const $=id=>document.getElementById(id),sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let cur=$('lock'),busy=0;
+const PHOTO_POSITIONS={
+  letter:'50% 30%',
+  couple:'50% 32%',
+  collage:['50% 30%','50% 28%','50% 30%','50% 24%','50% 38%']
+};
+document.querySelectorAll('.s').forEach(screen=>{screen.inert=screen!==cur;screen.setAttribute('aria-hidden',String(screen!==cur))});
+const show=id=>{cur.classList.remove('on');cur.inert=true;cur.setAttribute('aria-hidden','true');cur=$(id);cur.inert=false;cur.setAttribute('aria-hidden','false');cur.classList.add('on')};
+async function type(el,txt,ms=70){el.textContent='';for(const c of txt){el.textContent+=c;await sleep(ms)}}
+function photo(el,src,position='50% 30%'){if(src){el.style.backgroundImage=`url("${src}")`;el.style.backgroundSize='cover';el.style.backgroundPosition=position;el.style.backgroundRepeat='no-repeat';el.textContent=''}}
+const lockPassword=$('lock-password'),lockForm=$('lock-form'),lockError=$('lock-error');
+lockPassword.addEventListener('input',()=>{lockPassword.value=lockPassword.value.replace(/\D/g,'').slice(0,4);lockError.textContent=''});
+lockForm.addEventListener('submit',async event=>{
+ event.preventDefault();
+ if(lockPassword.value!=='2026'){lockError.textContent='Oops! Wrong password. Try again ❤️';lockPassword.value='';lockPassword.focus();return}
+ lockForm.querySelector('button').disabled=true;
+ $('lock').classList.add('unlocking');
+ await sleep(350);
+ show('gift1');
+});
+function continueOnTap(id,action){
+ const screen=$(id);
+ screen.setAttribute('tabindex','0');
+ screen.setAttribute('aria-label','Tap or press Enter to continue');
+ const advance=()=>{screen.onclick=null;screen.onkeydown=null;screen.removeAttribute('tabindex');screen.removeAttribute('aria-label');action()};
+ screen.onclick=advance;
+ screen.onkeydown=event=>{if(event.target===screen&&(event.key==='Enter'||event.key===' ')){event.preventDefault();advance()}};
+}
+/* gift */
+$('yes').onclick=()=>chooseScreen();
+$('no').onclick=()=>show('cry');
+$('again').onclick=()=>show('gift1');
+$('restart').onclick=()=>{
+ busy=0;
+ $('bears').classList.remove('hugging');
+ $('miss').textContent='';
+ $('lv').textContent='';
+ $('c1').textContent='';
+ $('c2').textContent='';
+ $('pgs').innerHTML='';
+ document.querySelectorAll('.s').forEach(screen=>screen.scrollTop=0);
+ document.querySelectorAll('.p,.hearts i').forEach(element=>{
+  element.style.animation='none';
+  void element.offsetWidth;
+  element.style.animation='';
+ });
+ show('gift1');
+};
+async function chooseScreen(){
+ show('choose');$('c1').textContent='';$('c2').textContent='';
+ const box=$('pgs');box.innerHTML='';
+ for(let i=0;i<3;i++){const b=document.createElement('button');b.className='pg';b.type='button';b.setAttribute('aria-label',`Choose penguin ${i+1}`);
+  b.innerHTML='<svg viewBox="0 0 100 110"><use href="#peng"/><use href="#gift" x="30" y="58" width="40" height="40"/></svg>';
+  b.onclick=()=>pick(i);box.appendChild(b)}
+ const ps=[...box.children];ps.forEach((p,i)=>setTimeout(()=>p.classList.add('in'),400+i*500));
+ await type($('c1'),CONFIG.t.choose1,60);await type($('c2'),CONFIG.t.choose2,45);
+}
+async function pick(i){if(busy)return;busy=1;
+ if(i==0){show('bday');continueOnTap('bday',()=>{show('letter');continueOnTap('letter',()=>{busy=0;chooseScreen()})})}
+ if(i==1){buildGrid();show('collage');await sleep(3500);show('mine');await sleep(3500);busy=0;chooseScreen()}
+ if(i==2){show('hug');$('miss').textContent='';await sleep(1200);$('bears').classList.add('hugging');
+   await type($('miss'),CONFIG.t.miss,110);await sleep(1500);$('restart').disabled=true;show('love');await type($('lv'),CONFIG.t.love,200);$('restart').disabled=false;busy=0}
+}
+function buildGrid(){const g=$('grid'),pos=[[2,2],[62,0],[32,30],[0,58],[62,58]];
+ g.innerHTML='';pos.forEach((p,i)=>{const h=document.createElement('div');h.className='heart';h.textContent='photo';
+  h.style.left=p[0]+'%';h.style.top=p[1]+'%';photo(h,CONFIG.photos.collage[i],PHOTO_POSITIONS.collage[i]);g.appendChild(h);
+  const l=document.createElement('div');l.className='lbl';l.textContent=CONFIG.t.labels[i]||'';
+  l.style.left=p[0]+'%';l.style.top=(p[1]+31)+'%';g.appendChild(l)})}
+/* init */
+const T=CONFIG.t;
+$('g1t').textContent=T.gift;$('yes').textContent=T.yes;$('no').textContent=T.no;
+$('cryt').textContent=T.cry;$('again').textContent=T.again;$('bt').textContent=T.birthday;
+$('colt').textContent=T.collage;$('mt').textContent=T.mine;$('md').textContent=T.date;$('ht').textContent=T.hug;
+$('cap').textContent=CONFIG.nickname;
+const title=document.createElement('b');
+title.textContent=CONFIG.letterTitle.replace('{name}',CONFIG.name);
+$('lt').appendChild(title);
+CONFIG.letter.forEach((line,index)=>{if(index)$('lt').appendChild(document.createElement('br'));$('lt').appendChild(document.createTextNode(line))});
+photo($('lph'),CONFIG.photos.letter,PHOTO_POSITIONS.letter);photo($('mph'),CONFIG.photos.couple,PHOTO_POSITIONS.couple);
+</script></body></html>
